@@ -1,0 +1,10 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: mistyrose;
+  }
+  
+  .completed {
+    color: rgb(6, 158, 69);
+  }
+  
