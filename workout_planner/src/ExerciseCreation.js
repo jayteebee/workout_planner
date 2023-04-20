@@ -1,89 +1,109 @@
+import "./exerciseCreation.css"
+import { Link } from "react-router-dom";
+
+
 export default function ExerciseCreation(props) {
-    const {
-      handleExerciseModuleCreationSubmit,
-      inputValue,
-      handleInputChange,
-      exerciseSearch,
-      filteredExercises,
-      exerciseSets,
-      exerciseReps,
-      exerciseWeight,
-      createWorkoutModule,
-      exerciseModule,
-      deleteExercise,
-      handleDeletingCheckboxes,
-      editExercise,
-      completeExercise,
-      deleteAllExercises,
-      deletingSelectedExercises
-    } = props;
-    return (
-      <>
-        <div className="exercise_creation_pop_up">
-          <form onSubmit={handleExerciseModuleCreationSubmit}>
-            <h3>Exercise Creation Pop Up</h3>
-  
-            <div className="exercise_creation_module">
-              {/* order will be the index+1 of the state it's stored in */}
-              <p>Order - 1</p>
-  
-              {/* This needs to work with the API */}
-  
-              <div>
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={handleInputChange}
-                />
-                <select name="exercise" onClick={exerciseSearch}>
-                  {filteredExercises.map((exercise, index) => (
-                    <option key={index} value={exercise.name}>
-                      {exercise.name}
-                    </option>
-                  ))}
-                </select>
+  const {
+    handleExerciseModuleCreationSubmit,
+    inputValue,
+    handleInputChange,
+    exerciseSearch,
+    filteredExercises,
+    exerciseSets,
+    exerciseReps,
+    exerciseWeight,
+    createWorkoutModule,
+    exerciseModule,
+    deleteExercise,
+    handleDeletingCheckboxes,
+    editExercise,
+    completeExercise,
+    deleteAllExercises,
+    deletingSelectedExercises
+  } = props;
+  return (
+    <>
+      <div className="gridContainer">
+        <h3 className="exerciseCreationHeader" >Exercise Creation</h3>
+        <div className="exerciseCreation">
+
+          <div className="exerciseCreationFlex">
+            <form onSubmit={handleExerciseModuleCreationSubmit}>
+
+
+              <div className="exercise_creation_module">
+                {/* order will be the index+1 of the state it's stored in */}
+                <p>Order - 1</p>
+
+                {/* This needs to work with the API */}
+
+                <div>
+                  <input
+                    className="exerciseSearchInput"
+                    type="text"
+                    placeholder="Search Exercise List"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                  />
+                  <select
+                    className="exersiceSearchDropDown"
+                    name="exercise" onClick={exerciseSearch}>
+                    {filteredExercises.map((exercise, index) => (
+                      <option key={index} value={exercise.name}>
+                        {exercise.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Vertical Counter for Sets/Reps/Weight */}
+
+                <div>
+                  <select
+
+                    className="sets" name="sets">
+                    {exerciseSets.map((sets, index) => (
+                      <option key={index} value={sets}>
+                        {sets}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <select className="reps" name="reps">
+                    {exerciseReps.map((reps, index) => (
+                      <option key={index} value={reps}>
+                        {reps}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <select className="weight" name="weight">
+                    {exerciseWeight.map((weight, index) => (
+                      <option key={index} value={weight}>
+                        {weight}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-  
-              {/* Vertical Counter for Sets/Reps/Weight */}
-  
-              <div>
-                <select className="sets" name="sets">
-                  {exerciseSets.map((sets, index) => (
-                    <option key={index} value={sets}>
-                      {sets}
-                    </option>
-                  ))}
-                </select>
-              </div>
-  
-              <div>
-                <select className="reps" name="reps">
-                  {exerciseReps.map((reps, index) => (
-                    <option key={index} value={reps}>
-                      {reps}
-                    </option>
-                  ))}
-                </select>
-              </div>
-  
-              <div>
-                <select className="weight" name="weight">
-                  {exerciseWeight.map((weight, index) => (
-                    <option key={index} value={weight}>
-                      {weight}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-  
-            <button type="submit"> Finalise Exercise </button>
-            <button onClick={createWorkoutModule}>Add Exercise To Workout</button>
-          </form>
+
+              <button
+                className="finaliseExerciseButton"
+                type="submit"> Finalise Exercise </button>
+              
+            </form>
+            <button
+                className="AddExerciseButton"
+                onClick={createWorkoutModule}>Add Exercise To Workout</button>
+          </div>
         </div>
-        <hr />
-  
-        <div>
+
+
+        <div className="exercisesSoFarContainer" >
           <h3> Exercises so far... </h3>
           {exerciseModule.map((exercisePackage, index) => (
             <div key={index}>
@@ -118,12 +138,12 @@ export default function ExerciseCreation(props) {
             </div>
           ))}
         </div>
-        <button onClick={deleteAllExercises}>Delete All</button>
-        <button onClick={deletingSelectedExercises}>Delete Selected</button>
-  
-        <br />
-        <button> Complete Push </button>
-      </>
-    );
-  }
-  
+        <div className="buttonContainers">
+          <button onClick={deleteAllExercises}>Delete All</button>
+          <button onClick={deletingSelectedExercises}>Delete Selected</button>
+          <button> Complete Push </button>
+        </div>
+      </div>
+    </>
+  );
+}

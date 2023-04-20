@@ -1,0 +1,83 @@
+.gridContainer {
+  height: 100vh;
+  display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-template-areas: 
+     ". c1 ."
+    ". c2 ."
+    ". c3 ."
+    ". c4 ."
+    ". c5 ."
+    ;
+}
+  
+  .routineCreationHeaderContainer {
+    grid-area: c1;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .routineCreationHeader {
+    font-size: 4em;
+    text-decoration: underline 4px;
+  }
+  
+  .createRoutineContainer {
+    grid-area: c2;
+  }
+
+.createRoutineInput,
+.editRoutineDropdown,
+.renameRoutineInput {
+padding: 1em;
+width: 14em;
+align-content: center;
+border: solid black 2px;
+border-radius: 2em;
+}
+
+.createRoutineButton,
+.editRoutineButton,
+.renameRoutineButton,
+.completeRoutineButton {
+padding: 1em;
+width: 16em;
+align-content: center;
+border: solid black 2px;
+border-radius: 2em;
+}
+
+.createRoutineFlex,
+.editRoutineFlex,
+.renameRoutineFlex
+ {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+border: 2px solid black;
+border-radius: 5em;
+background-color:rgba(134, 124, 124, 0.677);
+padding: 2em;
+
+}
+  
+  .editRoutineContainer {
+    grid-area: c3;
+  }
+  
+/* .editRoutineFlex {
+
+} */
+
+  .renameRoutineContainer {
+    grid-area: c4;
+  }
+  
+/* .renameRoutineFlex {
+ 
+} */
+
+  .completeRoutineContainer {
+    grid-area: c5;
+  }

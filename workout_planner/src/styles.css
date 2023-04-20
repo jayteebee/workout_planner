@@ -1,10 +1,14 @@
-.App {
-    font-family: sans-serif;
-    text-align: center;
-    background-color: mistyrose;
-  }
-  
-  .completed {
-    color: rgb(6, 158, 69);
-  }
-  
+ .App {
+   height: 100vh;
+   font-family: sans-serif;
+   text-align: center;
+   background-color: rgb(227, 219, 219);
+      font-family: 'Poiret One', cursive;
+    color: black;
+    }
+
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+ .completed {
+   color: rgb(6, 158, 69);
+ }

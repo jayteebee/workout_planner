@@ -1,0 +1,73 @@
+.gridContainer {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-template-areas:
+        ". c1 ."
+        ". c2 ."
+        ". c3 ."
+        "l4 c4 ."
+        ". c5 ."
+    ;
+}
+
+.exerciseCreationHeader {
+    grid-area: c1;
+    align-self: center;
+    justify-self: center;
+    font-size: 4em;
+    text-decoration: underline 4px;
+}
+
+.exerciseCreation {
+    grid-area: c2;
+}
+
+.exerciseCreationFlex {
+    display: flex;
+    justify-content: space-around;
+    border: 2px solid black;
+    border-radius: 5em;
+    background-color: rgba(134, 124, 124, 0.677);
+    padding: 2em;
+}
+
+.exersiceSearchDropDown,
+.exerciseSearchInput
+ {
+    padding: 1em;
+    width: 14em;
+    align-content: center;
+    border: solid black 2px;
+    border-radius: 2em;
+}
+
+.sets,
+.reps,
+.weight {
+    padding: 1em;
+    width: 7em;
+    align-content: center;
+    border: solid black 2px;
+    border-radius: 2em;
+}
+
+.exercisesSoFarContainer {
+    grid-area: l4;
+    align-self: center;
+}
+
+.buttonContainers {
+    grid-area: c5;
+    
+}
+
+.finaliseExerciseButton,
+.AddExerciseButton {
+    padding: 1em;
+    width: 16em;
+    align-content: center;
+    border: solid black 2px;
+    border-radius: 2em;
+}

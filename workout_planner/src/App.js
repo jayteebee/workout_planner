@@ -8,30 +8,31 @@ import WorkoutCreation from "./WorkoutCreation";
 import ExerciseCreation from "./ExerciseCreation";
 import Navigation from "./Navigation";
 
+
 export default function App() {
   // ***** STATE MANAGEMENT *****
 
   // This holds the user supplied routine name
   // this will be supplied from the Routine Creation Page
-  const [routine, setRoutine] = useState([]);
+  const [routine, setRoutine] = useState([]); // STATE 1
 
   // Data supplied by Routine Creation Page Form - input value
   // modified by handleCreateRoutine
-  const [newRoutine, setNewRoutine] = useState("");
+  const [newRoutine, setNewRoutine] = useState(""); // STATE 2
 
-  const [routineNameToEdit, setRoutineNameToEdit] = useState("");
+  const [routineNameToEdit, setRoutineNameToEdit] = useState(""); // STATE 3
 
-  const [renamedRoutine, setRenamedRoutine] = useState("");
+  const [renamedRoutine, setRenamedRoutine] = useState(""); // STATE 4
   // Cycle Duration State
   // this will store the users chosen duration
-  const [cycleDuration, setCycleDuration] = useState(null);
+  const [cycleDuration, setCycleDuration] = useState(null); // STATE 5
 
   // this will take the user input value from the checkbox
   // const [newCycleDuration, setNewCycleDuration] = useState("");
 
-  const [checked, setChecked] = useState(null);
+  const [checked, setChecked] = useState(null); // STATE 6
 
-  const [frequency, setFrequency] = useState({
+  const [frequency, setFrequency] = useState({ // STATE 7
     userChosenFrequency: [
       { monday: false },
       { tuesday: false },
@@ -43,13 +44,13 @@ export default function App() {
     ]
   });
 
-  const [userChosenDays, setUserChosenDays] = useState([]);
+  const [userChosenDays, setUserChosenDays] = useState([]); // STATE 8
 
-  const [customWorkoutName, setCustomWorkoutName] = useState("");
+  // const [customWorkoutName, setCustomWorkoutName] = useState(""); // STATE 9
 
-  const [exerciseSets, setExerciseSets] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [exerciseSets, setExerciseSets] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]); // STATE 10
 
-  const [exerciseReps, setExerciseReps] = useState([
+  const [exerciseReps, setExerciseReps] = useState([ // STATE 11
     1,
     2,
     3,
@@ -72,39 +73,32 @@ export default function App() {
     20
   ]);
 
-  const [exerciseWeight, setExerciseWeight] = useState([
-    //STATE 10
+  const [exerciseWeight, setExerciseWeight] = useState([ // STATE 12
+  
     "2.5kg",
     "5kg",
     "7.5kg",
     "10kg"
   ]);
 
-  const [
-    //STATE 11
+  const [ // STATE 13
     completedOneExerciseCreation,
     setCompletedOneExerciseCreation
   ] = useState([]);
-  // {
-  //   exercise: null,
-  //   sets: null,
-  //   reps: null,
-  //   weight: null
-  // }
 
-  const [exerciseModule, setExerciseModule] = useState([]); //STATE 12
+  const [exerciseModule, setExerciseModule] = useState([]); //STATE 14
 
   // exercises hold all data from api. data from new omponent
-  const [exercises, setExercises] = useState(Data); //STATE 13
+  const [exercises, setExercises] = useState(Data); //STATE 15
   // holds exercises filtered based on user input
-  const [filteredExercises, setFilteredExercises] = useState([]); //STATE 14
+  const [filteredExercises, setFilteredExercises] = useState([]); //STATE 16
   // holds value of the input field to choose exercise
-  const [inputValue, setInputValue] = useState(""); //STATE 15
+  const [inputValue, setInputValue] = useState(""); //STATE 17
   // determines whether to show drop down in exercise selection
-  const [showDropdown, setShowDropdown] = useState(false); //STATE 16
+  const [showDropdown, setShowDropdown] = useState(false); //STATE 18
 
   // deleting exercise checkboxes
-  const [deletingCheck, setDeletingCheck] = useState(null);
+  const [deletingCheck, setDeletingCheck] = useState(null); // STATE 19
 
   // ***** API API API *****
 
@@ -204,21 +198,21 @@ export default function App() {
     }
   };
 
-  const handleFrequencyCheckboxStateChange = (e) => {
+// FED FROM: CycleDuration.js - "frequencyCheckboxContainer"
+// PURPOSE: Updates Frequency state to store true value for day of week
+// ALSO: Removes relevant days from State 8 if unchecked.
+  const handleFrequencyCheckboxStateChange = (e, index, name) => {
     const value = e.target.value;
     const isChecked = e.target.checked;
-    // copy the frequency state
     const updatedFrequency = { ...frequency };
-    // invoke map on the array within freq. state
     updatedFrequency.userChosenFrequency = updatedFrequency.userChosenFrequency.map(
-      // day reps each day object within freq. array...
       (day) => {
-        // get the key(day) names from each day object, assign to dayName var
+// Assigns monday through sunday keys as seperate strings
         const dayName = Object.keys(day)[0];
-        // does the key equal the value of the check box?
+// this aligns the checkbox that has been ticked with the equivalent day in the object
         if (dayName === value) {
-          // if yes, make dayName var(key - day) equal checked(Y/N),
           // this updates the userChosenfrequency bool to true
+          // take dayName(each key) and assign isChecked
           return { [dayName]: isChecked };
         }
         // if no match, returns OG day object
@@ -226,27 +220,36 @@ export default function App() {
       }
     );
     setFrequency(updatedFrequency);
-    setUserChosenDays([...userChosenDays, { [value]: "" }]);
+    
+    if (isChecked) {
+      setUserChosenDays([...userChosenDays, { [value]: ""}]);
+    }  
+    else {
+      const updatedUserChosenDays = userChosenDays.filter((day) => {
+        const dayName = Object.keys(day)[0];
+        return dayName !==value;
+      });
+      setUserChosenDays(updatedUserChosenDays)
+    }
   };
 
-  // Assigning workouts to days
-  // Updating the userChosenDays state to custom value
-
-  // triggered when user input is changed
-  const handleCustomWorkoutName = (e, index) => {
-    const updatedUserChosenDays = [...userChosenDays];
-    updatedUserChosenDays[index].workoutName = e.target.value;
-    setUserChosenDays(updatedUserChosenDays);
-    setCustomWorkoutName(e.target.value);
-  };
+  // FED FROM: CycleDuration.js - "renameWorkoutInput". onChange.
+  // PURPOSE: Assign custom workout name to userChosenDays, State 8
+  // const handleCustomWorkoutName = (e, index) => {
+    // const updatedUserChosenDays = [...userChosenDays];
+    // creating workoutName key, assigning it value of user input
+    // updatedUserChosenDays[index].workoutName = e.target.value;
+    // setUserChosenDays(updatedUserChosenDays);
+    // setCustomWorkoutName(e.target.value);
+  // };
 
   // Triggered when Name Workout button is pressed
-  const updateUserChosenDaysState = (e, index) => {
-    e.preventDefault();
+  const updateUserChosenDaysState = (index,customWorkoutName ) => {
+    // e.preventDefault();
     const updatedUserChosenDays = [...userChosenDays];
     updatedUserChosenDays[index].workoutName = customWorkoutName;
     setUserChosenDays(updatedUserChosenDays);
-    setCustomWorkoutName("");
+    // setCustomWorkoutName("");
   };
 
   // updates inputValue state with user input.
@@ -255,6 +258,8 @@ export default function App() {
     setInputValue(inputValue);
   }
 
+// PURPOSE: Bring user generated exercise into state 13: completedOneExerciseCreation
+// FED FROM: ExerciseCreation.JS - FORM - onSubmit
   const handleExerciseModuleCreationSubmit = (e) => {
     e.preventDefault();
     const exercise = e.target.elements.exercise.value;
@@ -270,6 +275,7 @@ export default function App() {
       deleteCheck: false,
       completeCheck: false
     };
+
     const newCompletedOneExerciseCreation = [
       ...completedOneExerciseCreation,
       newExerciseCreationCompleted
@@ -277,43 +283,63 @@ export default function App() {
     setCompletedOneExerciseCreation(newCompletedOneExerciseCreation);
   };
 
+// FED FROM: ExerciseCreation.js - FORM - "AddExerciseButton"
+// PURPOSE: Assigning user created exercise to state 14
+// Sets up rendering to UI
   const createWorkoutModule = (e) => {
     let newExerciseModule = [...exerciseModule];
     newExerciseModule = completedOneExerciseCreation;
     setExerciseModule(newExerciseModule);
   };
 
+// PURPOSE: Deletes single exercise from State 13 & 14
+// FED FROM: ExerciseCreation.js - "exercisesSoFarContainer"
   const deleteExercise = (index) => {
     const deletingExerciseModule = [...exerciseModule];
     deletingExerciseModule.splice(index, 1);
     setExerciseModule(deletingExerciseModule);
-    console.log(exerciseModule);
+    const deletingSingleCompletedOneExerciseCreation = [...completedOneExerciseCreation];
+    deletingSingleCompletedOneExerciseCreation.splice(index,1);
+    setCompletedOneExerciseCreation(deletingSingleCompletedOneExerciseCreation)
   };
 
+  // PURPOSE: Deletes all exercises from State 13 & 14
+  // FED FROM: ExerciseCreation.js - "buttonContainers"
   const deleteAllExercises = () => {
     let deletingAllExerciseModules = [...exerciseModule];
     deletingAllExerciseModules = [];
     setExerciseModule(deletingAllExerciseModules);
+    let deletingAllCompletedOneExerciseCreation = [...completedOneExerciseCreation];
+    deletingAllCompletedOneExerciseCreation = []
+    setCompletedOneExerciseCreation(deletingAllCompletedOneExerciseCreation)
   };
 
-  // filter the exercises to only keep deletecheck: true exercises
-  // fire that into the exerciseModule state
-  // this is the part that actually deletes the items
-  const deletingSelectedExercises = () => {
-    const selectedExercisesToDelete = exerciseModule.filter(
-      (exercise) => !exercise.deleteCheck
-    );
-    setExerciseModule(selectedExercisesToDelete);
-  };
-
-  // get the checked value from the input checkbox
-  // update the selected exercise at the index of the exercise that the checkbox was ticked
-  // so that it updates deleteCheck to the checkedValue, which is true
+  // FED FROM: ExerciseCreation.js - "exercisesSoFarContainer"
+  // PURPOSE: Update the deleteCheck based on user click: 
+  // Sets up "deletingSelectedExercises" function.
   const handleDeletingCheckboxes = (e, index) => {
     const checkedValue = e.target.checked;
     const updatedState = [...exerciseModule];
     updatedState[index] = { ...updatedState[index], deleteCheck: checkedValue };
     setExerciseModule(updatedState);
+    const updatedSecondState = [...completedOneExerciseCreation];
+    updatedSecondState[index] = {...updatedSecondState[index], deleteCheck: checkedValue};
+    setCompletedOneExerciseCreation(updatedSecondState);
+  };
+
+
+  // FED FROM: ExerciseCreation.js - "buttonContainers"
+  // PURPOSE: Delete selected exercises from state 13 & 14.
+  // WALKTHROUGH: Filter to keep only deleteCheck: true exercises (default value: false)
+  const deletingSelectedExercises = () => {
+    const selectedExerciseModulesToDelete = exerciseModule.filter(
+      (exercise) => !exercise.deleteCheck
+    );
+    setExerciseModule(selectedExerciseModulesToDelete);
+    const selectedCompletedOneExerciseCreationToDelete = completedOneExerciseCreation.filter(
+      (exercises) => !exercises.deleteCheck
+    );
+    setCompletedOneExerciseCreation(selectedCompletedOneExerciseCreationToDelete);
   };
 
   //after the user has made their edits this funk will finalise and push to exerciseModule
@@ -375,8 +401,8 @@ export default function App() {
                 handleFrequencyCheckboxStateChange
               }
               userChosenDays={userChosenDays}
-              customWorkoutName={customWorkoutName}
-              handleCustomWorkoutName={handleCustomWorkoutName}
+              // customWorkoutName={customWorkoutName}
+              // handleCustomWorkoutName={handleCustomWorkoutName}
               updateUserChosenDaysState={updateUserChosenDaysState}
             />
           }
@@ -413,344 +439,6 @@ export default function App() {
           }
         />
       </Routes>
-      {/* *** ROUTINE CREATION PAGE */}
-
-      {/* CREATE ROUTINE SECTION */}
-      {/* <h2>Routine Creation Page</h2>
-      <form onSubmit={handleCreateRoutine}>
-        <input
-          type="text"
-          placeholder="New routine name..."
-          value={newRoutine}
-          onChange={handleNewRoutineStateChange}
-        />
-
-        <button type="submit">Create Routine</button>
-      </form>
-
-      <div>
-        <form onSubmit={editRoutineName}>
-          <select name="routine">
-            {routine.map((routine, index) => (
-              <option key={index} value={routine.routineName}>
-                {routine.routineName}
-              </option>
-            ))}
-          </select>
-          <button type="submit">Edit Routine Name</button>
-        </form>
-      </div>
-
-      <form onSubmit={handleRenamedRoutine}>
-        <input
-          type="text"
-          placeholder="Rename Routine..."
-          value={renamedRoutine}
-          onChange={handleRenamedRoutineStateChange}
-        />
-
-        <button type="submit">Rename Routine</button>
-      </form> */}
-
-      {/* CYCLE DURATION SECTION */}
-
-      {/* <h3>Cycle Duration</h3>
-
-      <div className="weekly_checkbox">
-        <input
-          onChange={handleNewCycleDurationStateChange}
-          type="checkbox"
-          id="durationCheckbox"
-          name="weekly"
-          value="weekly"
-          checked={checked === "weekly"}
-        />
-        Weekly
-      </div>
-
-      <div className="ten_day_checkbox">
-        <input
-          onChange={handleNewCycleDurationStateChange}
-          type="checkbox"
-          id="durationCheckbox"
-          name="tenDay"
-          value="tenDay"
-          checked={checked === "tenDay"}
-        />{" "}
-        10 Days
-      </div>
-
-      <div className="twelve_day_checkbox">
-        <input
-          onChange={handleNewCycleDurationStateChange}
-          type="checkbox"
-          id="durationCheckbox"
-          name="twelveDay"
-          value="twelveDay"
-          checked={checked === "twelveDay"}
-        />
-        12 Days
-      </div>
-
-      <hr />
-
-      <h3>Frequency</h3>
-
-      <div className="weekly_frequency">
-        <input
-          onChange={handleFrequencyCheckboxStateChange}
-          type="checkbox"
-          id="frequencyCheckbox"
-          name="monday"
-          value="monday"
-        />
-        Mon
-        <input
-          onChange={handleFrequencyCheckboxStateChange}
-          type="checkbox"
-          id="frequencyCheckbox"
-          name="tuesday"
-          value="tuesday"
-        />
-        Tues
-        <input
-          onChange={handleFrequencyCheckboxStateChange}
-          type="checkbox"
-          id="frequencyCheckbox"
-          name="wednesday"
-          value="wednesday"
-        />
-        Weds
-        <input
-          onChange={handleFrequencyCheckboxStateChange}
-          type="checkbox"
-          id="frequencyCheckbox"
-          name="thursday"
-          value="thursday"
-        />
-        Thurs
-        <input
-          onChange={handleFrequencyCheckboxStateChange}
-          type="checkbox"
-          id="frequencyCheckbox"
-          name="friday"
-          value="friday"
-        />
-        Fri
-        <input
-          onChange={handleFrequencyCheckboxStateChange}
-          type="checkbox"
-          id="frequencyCheckbox"
-          name="saturday"
-          value="saturday"
-        />
-        Sat
-        <input
-          onChange={handleFrequencyCheckboxStateChange}
-          type="checkbox"
-          id="frequencyCheckbox"
-          name="sunday"
-          value="sunday"
-        />
-        Sun
-      </div>
-      <button>Confirm Days</button>
-      <hr />
-
-     
-
-      <h3>Assigning Workouts to days</h3>
-
-      <div>
-        {userChosenDays.map((day, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              placeholder="Rename Workout.."
-              value={customWorkoutName}
-              onChange={(e) => handleCustomWorkoutName(e, index)}
-            />
-            <button onClick={(e) => updateUserChosenDaysState(e, index)}>
-              Name Workout
-            </button>
-          </div>
-        ))}
-      </div>
-
-      <hr /> */}
-
-      {/* Not required for MVP - come back later */}
-      {/* <div>
-        {userChosenDays.map((customName, index) => (
-          <div key={index}>
-            <li>{userChosenDays.customName}</li>
-          </div>
-        ))}
-      </div>
-      <button> Create Workout </button> */}
-
-      <hr />
-
-      {/* I THINK I NEED TO PASS SHIT DOWN TO WORKOUT CREATION AS PROPS WHEN THE CREATE
-WORKOUT BUTTON IS CLICKED, SO MAYBE CREATE NEW PAGE */}
-
-      {/* *** WORKOUT CREATION PAGE*** */}
-      {/* <h2>Workout Creation Page</h2>
-
-      <div className="routine_workout_creation">
-        <h3>Routine Selection</h3>
-        <select
-          className="routine_To_Edit_DropDown"
-          name="routineToEditDropDown"
-        >
-           these value(s) need to autofill from the routine state, created
-          in the Routine Creation Page 
-
-          {routine.map((routine, index) => (
-            <option key={index} value={index}>
-              {routine.routineName}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <hr />
-       *** WORKOUT MODULES *** 
-
-          These need to be dynamically rendered depending on the
-           amount of workout names within userChosenDays 
-
-      <div className="workout_module">
-         this P content needs to take the value of the
-        assigningWorkoutsToDays variable, in Routine Creation 
-
-        <p>Workout Name </p>
-         This button needs to be connected to a function that
-        displays the exercise creation full screen pop up 
-        <button>Edit Workout - Push</button>
-      </div>
-
-       SECOND WORKOUT MODULE
-      <div className="workout_module">
-        <p>Workout Name - Pull</p>
-        <button>Edit Workout - Pull</button>
-      </div> */}
-
-      <hr />
-
-      {/* *** EXERCISE CREATION POP UP */}
-      {/*
-      <div className="exercise_creation_pop_up">
-        <form onSubmit={handleExerciseModuleCreationSubmit}>
-          <h3>Exercise Creation Pop Up</h3>
-
-          <div className="exercise_creation_module">
-            order will be the index+1 of the state it's stored in
-            <p>Order - 1</p>
-
-            This needs to work with the API
-
-            <div>
-              <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-              />
-              <select name="exercise" onClick={exerciseSearch}>
-                {filteredExercises.map((exercise, index) => (
-                  <option key={index} value={exercise.name}>
-                    {exercise.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            Vertical Counter for Sets/Reps/Weight
-
-            <div>
-              <select className="sets" name="sets">
-                {exerciseSets.map((sets, index) => (
-                  <option key={index} value={sets}>
-                    {sets}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <select className="reps" name="reps">
-                {exerciseReps.map((reps, index) => (
-                  <option key={index} value={reps}>
-                    {reps}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <select className="weight" name="weight">
-                {exerciseWeight.map((weight, index) => (
-                  <option key={index} value={weight}>
-                    {weight}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <button type="submit"> Finalise Exercise </button>
-          <button onClick={createWorkoutModule}>Add Exercise To Workout</button>
-        </form>
-      </div>
-      <hr />
-
-      <div>
-        <h3> Exercises so far... </h3>
-        {exerciseModule.map((exercisePackage, index) => (
-          <div key={index}>
-            <ul className={exercisePackage.completeCheck ? "completed" : null}>
-              <li>Exercise: {exercisePackage.exercise}</li>
-              <li>
-                Sets: {exercisePackage.sets}, Reps: {exercisePackage.reps}
-              </li>
-              <li>Weight: {exercisePackage.weight}</li>
-            </ul>
-            <button onClick={() => deleteExercise(index)}>
-              Delete Exercise
-            </button>
-            <br />
-            <input
-              onChange={(e) => handleDeletingCheckboxes(e, index)}
-              type="checkbox"
-              id="deleteExerciseCheckbox"
-              name={index}
-              value={index}
-              // set to false in exercise module VIA handleExerciseModuleCreationSubmit funk
-              checked={exercisePackage.deleteCheck}
-            />
-            Select Exercise
-            <br />
-            <button onClick={() => editExercise(index)}>Edit Exercise</button>
-            <br />
-            <button onClick={() => completeExercise(index)}>
-              Complete Exercise
-            </button>
-            <br />
-          </div>
-        ))}
-      </div>
-      <button onClick={deleteAllExercises}>Delete All</button>
-      <button onClick={deletingSelectedExercises}>Delete Selected</button>
-
-      <br />
-      <button> Complete Push </button>
-*/}
-
-      <hr />
-      {/* *** COMPLETE (ROUTINE NAME) BUTTON */}
-      <div className="complete_routine">
-        <button>Complete Routine</button>
-      </div>
     </div>
   );
 }
