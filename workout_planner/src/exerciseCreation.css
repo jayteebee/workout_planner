@@ -5,7 +5,7 @@
     grid-template-rows: 20% 20% 20% 20% 20%;
     grid-template-areas:
         ". c1 ."
-        ". c2 ."
+        "l2 c2 ."
         ". c3 ."
         "l4 c4 ."
         ". c5 ."
@@ -54,7 +54,7 @@
 }
 
 .exercisesSoFarContainer {
-    grid-area: l4;
+    grid-area: l2;
     align-self: center;
 }
 
@@ -67,6 +67,20 @@
 .AddExerciseButton {
     padding: 1em;
     width: 16em;
+    align-content: center;
+    border: solid black 2px;
+    border-radius: 2em;
+}
+
+.deleteExerciseButton,
+.editExerciseButton,
+.completeExerciseButton,
+.deleteAllExerciseButton,
+.deleteSelectedExerciseButton,
+.completePushButton
+ {
+    
+    width: 8em;
     align-content: center;
     border: solid black 2px;
     border-radius: 2em;

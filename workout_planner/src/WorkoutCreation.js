@@ -32,15 +32,15 @@ export default function WorkoutCreation(props) {
 
         <div className="workoutModules">
           <div className="workout_module">
-            <p>Workout Name </p>
-            <button>
+           
+            <button className="editWorkoutPushbutton" >
             <Link to="/ExerciseCreation"> Edit Workout - Push </Link>
             </button>
           </div>
 
           <div className="workout_module">
-            <p>Workout Name - Pull</p>
-            <button>
+            
+            <button className="editWorkoutPullbutton" >
             <Link to="/ExerciseCreation"> Edit Workout - Pull </Link>
 
             </button>

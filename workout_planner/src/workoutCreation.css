@@ -44,3 +44,13 @@
   .workoutModules {
     grid-area: c3;
   }
+
+  .editWorkoutPushbutton,
+  .editWorkoutPullbutton {
+    padding: 1em;
+    width: 16em;
+    align-content: center;
+    border: solid black 2px;
+    border-radius: 2em;
+    margin: 2em
+  }

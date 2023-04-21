@@ -78,7 +78,18 @@ export default function App() {
     "2.5kg",
     "5kg",
     "7.5kg",
-    "10kg"
+    "10kg",
+    "12.5kg",
+    "15kg",
+    "17.5kg",
+    "20kg",
+    "22.5kg",
+    "25kg",
+    "27.5kg",
+    "30kg",
+    
+    
+    
   ]);
 
   const [ // STATE 13
@@ -89,7 +100,7 @@ export default function App() {
   const [exerciseModule, setExerciseModule] = useState([]); //STATE 14
 
   // exercises hold all data from api. data from new omponent
-  const [exercises, setExercises] = useState(Data); //STATE 15
+  const [exercises, setExercises] = useState([]); //STATE 15
   // holds exercises filtered based on user input
   const [filteredExercises, setFilteredExercises] = useState([]); //STATE 16
   // holds value of the input field to choose exercise
@@ -110,6 +121,18 @@ export default function App() {
     // made compatible with case sensitivity
     // .includes simply checks the user input against the stored data
 
+// C/O for API limit
+fetch(edbExerciseUrl, {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Key": "b8fc303440msh833573d8d0d9838p1b219bjsn4077b0fe04f7"
+  }
+})
+  .then((response) => response.json())
+  // here, we're giving the entire exercise list to the exercise state
+  .then((data) => setExercises(data)) //[0].name
+  .catch((error) => console.log(error));
+
     const filteredExercises = exercises.filter((exercise) =>
       exercise.name.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -124,26 +147,16 @@ export default function App() {
 
     // default state is empty array
 
-    // C/O for API limit
-    //   fetch(edbExerciseUrl, {
-    //     method: "GET",
-    //     headers: {
-    //       "X-RapidAPI-Key": "b8fc303440msh833573d8d0d9838p1b219bjsn4077b0fe04f7"
-    //     }
-    //   })
-    //     .then((response) => response.json())
-    //     // here, we're giving the entire exercise list to the exercise state
-    //     .then((data) => setExercises(data))
-    //     .catch((error) => console.log(error));
-    // }
+    
+    }
 
-    // function handleExerciseSelectionDropDown() {
-    //   fetch(edbExerciseUrl)
-    //     .then((response) => response.json())
-    //     // here, we're giving the entire exercise list to the exercise state
-    //     .then((data) => setExercise(data[0]))
-    //     .catch((error) => console.log("hell naw", error));
-    //
+    function handleExerciseSelectionDropDown() {
+      fetch(edbExerciseUrl)
+        .then((response) => response.json())
+        // here, we're giving the entire exercise list to the exercise state
+        .then((data) => setExercises([0]))
+        .catch((error) => console.log("No: ", error));
+    
   }
 
   // ***** FUNCTIONS *****
@@ -371,7 +384,10 @@ export default function App() {
   return (
     <div className="App">
       {/* *** NAV BAR *** NAV BAR *** NAV BAR *** */}
-      <Navigation />
+      <div className="nav">
+      <Navigation 
+      />
+      </div>
       <Routes>
         <Route
           path="/"
@@ -439,6 +455,7 @@ export default function App() {
           }
         />
       </Routes>
+      
     </div>
   );
 }

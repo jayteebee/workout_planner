@@ -12,3 +12,8 @@
  .completed {
    color: rgb(6, 158, 69);
  }
+
+ .nav {
+  margin: 1em;
+  padding: 1em;
+ }

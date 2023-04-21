@@ -12,12 +12,17 @@
      ;
  }
 
- .cycleDurationHeader {
+ .cycleDurationHeaderContainer {
      grid-area: c1;
      align-self: center;
      justify-self: center;
-     font-size: 4em;
+     font-size: 3em;
      text-decoration: underline 4px;
+ }
+
+ .cycleDurationHeader {
+    display: flex;
+    justify-self: baseline;
  }
 
 .frequencyHeader {
@@ -46,7 +51,9 @@
  }
 
  .confirmDaysButtonContainer {
-    grid-area: c2;
+    grid-area: c5;
+    align-self: center;
+     justify-self: center;
  }
 
  .confirmDaysButton,
@@ -74,7 +81,3 @@ border-radius: 2em;
      grid-area: c4;
  }
 
-
- .weekly_checkbox {
-    color: rgb(64, 161, 42);
- }

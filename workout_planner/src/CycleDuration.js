@@ -15,8 +15,9 @@ export default function CycleDuration(props) {
   return (
     <>
       <div className="gridContainer">
-
+<div className="cycleDurationHeaderContainer">
         <h3 className="cycleDurationHeader" >Cycle Duration</h3>
+</div>
         <div className="durationCheckboxContainers">
           <div className="durationCheckboxFlex">
             <div className="weekly_checkbox">

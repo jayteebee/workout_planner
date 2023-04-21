@@ -64,7 +64,7 @@ export default function ExerciseCreation(props) {
                     className="sets" name="sets">
                     {exerciseSets.map((sets, index) => (
                       <option key={index} value={sets}>
-                        {sets}
+                        sets: {sets}
                       </option>
                     ))}
                   </select>
@@ -74,7 +74,7 @@ export default function ExerciseCreation(props) {
                   <select className="reps" name="reps">
                     {exerciseReps.map((reps, index) => (
                       <option key={index} value={reps}>
-                        {reps}
+                        reps: {reps}
                       </option>
                     ))}
                   </select>
@@ -114,7 +114,9 @@ export default function ExerciseCreation(props) {
                 </li>
                 <li>Weight: {exercisePackage.weight}</li>
               </ul>
-              <button onClick={() => deleteExercise(index)}>
+              <button
+              className="deleteExerciseButton"
+              onClick={() => deleteExercise(index)}>
                 Delete Exercise
               </button>
               <br />
@@ -129,9 +131,13 @@ export default function ExerciseCreation(props) {
               />
               Select Exercise
               <br />
-              <button onClick={() => editExercise(index)}>Edit Exercise</button>
+              <button 
+              className="editExerciseButton"
+              onClick={() => editExercise(index)}>Edit Exercise</button>
               <br />
-              <button onClick={() => completeExercise(index)}>
+              <button
+              className="completeExerciseButton"
+              onClick={() => completeExercise(index)}>
                 Complete Exercise
               </button>
               <br />
@@ -139,9 +145,15 @@ export default function ExerciseCreation(props) {
           ))}
         </div>
         <div className="buttonContainers">
-          <button onClick={deleteAllExercises}>Delete All</button>
-          <button onClick={deletingSelectedExercises}>Delete Selected</button>
-          <button> Complete Push </button>
+          <button 
+          className="deleteAllExerciseButton"
+          onClick={deleteAllExercises}>Delete <br/>All</button>
+          <button
+          className="deleteSelectedExerciseButton"
+          onClick={deletingSelectedExercises}>Delete Selected</button>
+          <button
+          className="completePushButton"
+          > Complete Push </button>
         </div>
       </div>
     </>
