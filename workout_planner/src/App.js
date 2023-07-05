@@ -86,10 +86,7 @@ export default function App() {
     "22.5kg",
     "25kg",
     "27.5kg",
-    "30kg",
-    
-    
-    
+    "30kg", 
   ]);
 
   const [ // STATE 13
